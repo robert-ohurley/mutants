@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Visitor struct {
 	//Where to begin the traversal from.
 	root *errorNode
@@ -52,5 +54,32 @@ func (v *Visitor) buildStack(node *errorNode) {
 	for _, n := range node.next {
 		v.stack = append(v.stack, n)
 		v.buildStack(n)
+	}
+}
+
+var leafNodes = 0
+
+func PrintTree(startingNode *errorNode) {
+	printTree(startingNode, 0)
+	fmt.Println("total possible outcomes: ", leafNodes)
+}
+
+func printTree(node *errorNode, indent int) {
+	for i := 0; i < indent; i++ {
+		fmt.Print("\t")
+	}
+
+	if node.IsLeaf() {
+		leafNodes++
+	}
+
+	node.Error()
+
+	if len(node.next) == 0 {
+		return
+	}
+
+	for _, n := range node.next {
+		printTree(n, indent+1)
 	}
 }

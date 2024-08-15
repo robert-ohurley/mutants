@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type errorNode struct {
 	//The error associated with this error node
@@ -11,7 +14,9 @@ type errorNode struct {
 }
 
 func (e *errorNode) Error() {
-	fmt.Printf("type: %v, expected: %s, got: %s, len of connected nodes = %d\n", e.err.errType, e.err.expected, e.err.recieved, len(e.next))
+	fmt.Printf("type: %v, expected: %s, got: %s, len of connected nodes = %d\n", e.err.errorType, strings.Trim(e.err.expected, "\n\t "), strings.Trim(e.err.recieved, "\n\t "), len(e.next))
+	//fmt.Printf("type: %v, got: %s \n", e.err.errorType , e.err.recieved)
+
 }
 
 func (e *errorNode) IsLeaf() bool {

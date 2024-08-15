@@ -1,33 +1,25 @@
 package main
 
-type ErrType int
+type ErrorType string
 
 const (
-	returnErr ErrType = iota + 1
-	logicErr
-	paramErr
-	noErr
+	returnError ErrorType = "Return Error"
+	logicError            = "Logic Error"
+	paramError            = "Parameter Error"
+	noErr                 = "No Error"
 )
 
 type err struct {
 	//Defines a return error, logic error or param ordering error.
-	errType ErrType
+	errorType ErrorType
 
 	//The value expected considering the errType
 	expected string
 
 	//What was recieved
 	recieved string
-
-	//after performing substitutions defined by the popes, a codeBody is set.
-	//we can later walk the tree and execute all leaf node code
-	codeBody string
 }
 
-func NewErr(errType ErrType, expected, recieved string) *err {
-	return &err{errType, expected, recieved, ""}
-}
-
-func (e *err) SetCodyBody(s string) {
-	e.codeBody = s
+func NewErr(errorType ErrorType, expected, recieved string) *err {
+	return &err{errorType, expected, recieved}
 }

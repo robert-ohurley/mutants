@@ -1,32 +1,23 @@
 package main
 
-// An error template is an object which allows for formatting of a code body.
-// Use templating syntax to provide a template e.g. {{p1:+}} in the code body.
-// Where a represents an identifier and b is the correct value for this point in the code.
-
-// Replacements are what might be mistakenly coded in it's place e.g. * instead of +
-
-//We are trying to generate all possible incorrect code bodies.
-//Then we give a positive test case and see if the inputs for the positive test case match any of the error templates
+import "os"
 
 func main() {
-	sum := NewTFunc()
-	sum.SetFuncName("sum")
-	sum.SetParam([2]string{"a", "int"})
-	sum.SetParam([2]string{"b", "int"})
-	sum.SetParam([2]string{"c", "int"})
+	myFunc := NewTFunc("sumTwoNumbers")
+	myFunc.SetParam([2]string{"a", "int"})
+	myFunc.SetParam([2]string{"b", "int"})
 
-	sum.SetCodeBody(`
-		a = (a {{id1:+}} b) {{id2:*}} b
-		c = a {{id3:-}} 5
-    `)
-	sum.SetReturn("c", []string{"a", "b"})
+	myFunc.SetCodeBody(`
+            a = (a {{id1:+}} b) {{id2:-}} b`)
 
-	sum.AddPope("id1", []string{"-", "*"})
-	sum.AddPope("id2", []string{"-", "+"})
-	sum.AddPope("id3", []string{"*", "+"})
+	myFunc.AddPope("id1", []string{"-", "*", "/"})
+	myFunc.AddPope("id2", []string{"+", "*", "/"})
 
-	sum.CountPOPEPermutations()
+	myFunc.SetReturn("a", "b")
+	myFunc.AddPassingTestCase("4", "int", "2", "2")
 
-	PrintTree(sum.rootErrorNode)
+	myFunc.Execute(os.Stdout)
+	PrintTree(myFunc.rootErrorNode)
+
+	//PrintTree(myFunc.rootErrorNode)
 }
