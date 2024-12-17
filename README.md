@@ -8,12 +8,11 @@ Separate good test cases from bad test cases. Define points of potential error i
 ## Key Features
 Pope allows you to create and test functions with specific points of potential error (POPE) where different operations or logic variations can be tested. This can be particularly useful for ensuring code robustness and identifying how changes in logic can affect the outcome.
 
-- **Customizable Error Points**: Identify points of potential error in your code.
-- **Automated Testing**: Add test cases to automatically validate if function behavior can be generated through programming error.
+- **Testing**: Add test cases to automatically validate if function behavior can be generated through programming error.
 - **Error Visualization**: Print your error tree and be mortified at all the possible ways you can stuff things up.
 
 ## Example Usage
-Below is an example demonstrating how to use Pope to define a function, set parameters, handle potential errors, and test the function.
+Below is an example demonstrating how to define a function, set parameters, find potential errors, and test the function.
 
 ```go
 package main
